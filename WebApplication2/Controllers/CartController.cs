@@ -6,7 +6,7 @@ using WebApplication2.Services;
 namespace WebApplication2.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]/{id?}")]
+    [Route("[controller]/[action]")]
     public class CartController : ControllerBase
     {
 
@@ -21,14 +21,14 @@ namespace WebApplication2.Controllers
 
 
         [HttpGet]
+        [Route("~/[controller]/[action]/{id}")]
         public ListCartResponse List(int id)
         {
-            var res = _cartService.ListCart(new ListCartRequest() { UserId = id});
+            var res = _cartService.ListCart(new ListCartRequest() { UserId = id });
             return res;
         }
 
         [HttpPut]
-        [Route("~/[controller]/[action]")]
         public bool AddItems([FromBody] AddItemRequest request)
         {
             var res = _cartService.AddItems(request);
@@ -36,7 +36,6 @@ namespace WebApplication2.Controllers
         }
 
         [HttpDelete]
-        [Route("~/[controller]/[action]")]
         public bool Delete([FromBody] DeleteCartRequest request)
         {
             var res = _cartService.DeleteCart(request);
@@ -45,7 +44,6 @@ namespace WebApplication2.Controllers
 
 
         [HttpDelete]
-        [Route("~/[controller]/[action]")]
         public bool DeleteCartItems([FromBody] DeleteCartItemsRequest request)
         {
             var res = _cartService.DeleteItemsFromCart(request);
